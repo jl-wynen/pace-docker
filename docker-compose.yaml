@@ -1,0 +1,26 @@
+services:
+  pace_neutrons:
+    image: pace_neutrons/matlab
+    build:
+      context: ./image
+      args:
+        # Set these to the user and group ID of the project directories owner.
+        # This gives the user in the Docker container write access to this folder.
+        HOST_UID: 1000
+        HOST_GID: 1000
+    volumes:
+      - type: bind
+        target: /home/jovyan/project
+        # Set a path to a Python project to mount in the container.
+        source: /home/jl/Work/ess/spectroscopy
+    environment:
+      # Known, stable token for Jupyter.
+      # Remove this line to make Jupyter generate a token and to produce a
+      # clickable link in the terminal.
+      JUPYTER_TOKEN: pace
+      # Specify any dependencies that should be installed.
+      # The package in the project path and its dependencies are always installed.
+      PYTHON_DEPENDENCIES: "-r requirements/dev.txt"
+    network_mode: host
+volumes:
+  pace_neutrons:

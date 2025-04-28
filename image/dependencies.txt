@@ -1,0 +1,8 @@
+ca-certificates
+gcc
+git
+libc6-dev
+libgl1
+libxt6
+unzip
+wget
